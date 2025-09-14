@@ -6,13 +6,21 @@
 //
 
 import UIKit
+import SwiftUI
 
 extension UIView {
+  
+  // MARK: - Add SubViews
+  func addSubviews(_ views: UIView...) {
+    views.forEach { addSubview($0) }
+  }
+  
+  // MARK: - Add Constraints To View
   func anchor(
     top: NSLayoutYAxisAnchor? = nil,
     leading: NSLayoutXAxisAnchor? = nil,
-    bottom: NSLayoutYAxisAnchor? = nil,
     trailing: NSLayoutXAxisAnchor? = nil,
+    bottom: NSLayoutYAxisAnchor? = nil,
     padding: UIEdgeInsets = .zero,
     size: CGSize = .zero
   ) {
@@ -45,4 +53,22 @@ extension UIView {
     
     NSLayoutConstraint.activate(anchors)
   }
+}
+
+extension UIView {
+    @available(iOS 13, *)
+    private struct Preview: UIViewRepresentable {
+        typealias UIViewType = UIView
+        let view: UIView
+        func makeUIView(context: Context) -> UIView {
+            return view
+        }
+        
+        func updateUIView(_ uiView: UIView, context: Context) {}
+    }
+    
+    @available(iOS 13, *)
+    func showPreview() -> some View {
+        Preview(view: self)
+    }
 }

@@ -5,19 +5,31 @@
 //  Created by name on 14/09/2025.
 //
 
+import Combine
 import UIKit
 
 class ProfileScreenViewController: UIViewController {
+  private let headerView = NameAndAddressView(
+    name: "John Doe",
+    address: "123 Main Street Main Street, Cairo city, 12294005122112121212"
+  )
+  private let albumsTableView = AlbumsTableView()
+
+  private let viewModel = ProfileScreenViewModel()
+  private var cancellables = Set<AnyCancellable>()
+
+  private let spinner = UIActivityIndicatorView(style: .large)
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupView()
-    let headerView = makeNameAndAddressView()
-    view.addSubview(headerView)
-
-    headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                      leading: view.leadingAnchor,
-                      trailing: view.trailingAnchor,
-                      padding: .init(top: 16, left: 16, bottom: 0, right: -16))
+    addUICompoents()
+    bindViewModel()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    viewModel.fetchAlbums()
   }
 
   private func setupView() {
@@ -26,36 +38,44 @@ class ProfileScreenViewController: UIViewController {
     view.backgroundColor = .systemBackground
   }
 
-  private func makeNameAndAddressView() -> UIView {
-    let container = UIView()
+  private func addUICompoents() {
+    view.addSubviews(headerView, albumsTableView, spinner)
+    
+    headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                      leading: view.leadingAnchor,
+                      trailing: view.trailingAnchor,
+                      padding: .init(top: 16, left: 16, bottom: 0, right: 16),
+                      size: .init(width: 0, height: 80))
 
-    let nameLabel = UILabel()
-    nameLabel.text = "John Doe"
-    nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-
-    let addressLabel = UILabel()
-    addressLabel.text = "123 Main Street, Cairo"
-    addressLabel.font = UIFont.systemFont(ofSize: 16)
-    addressLabel.textColor = .label
-    addressLabel.numberOfLines = 0
-
-    container.addSubview(nameLabel)
-    container.addSubview(addressLabel)
-
-    nameLabel.anchor(top: container.topAnchor,
-                     leading: container.leadingAnchor,
-                     trailing: container.trailingAnchor)
-
-    addressLabel.anchor(
-      top: nameLabel.bottomAnchor,
-      leading: container.leadingAnchor,
-      trailing: container.trailingAnchor,
-      padding: .top(4)
-    )
-
-    return container
+    albumsTableView.anchor(top: headerView.bottomAnchor,
+                           leading: view.leadingAnchor,
+                           trailing: view.trailingAnchor,
+                           bottom: view.bottomAnchor)
+        
+    spinner.center = view.center
   }
-  
+
+  private func bindViewModel() {
+    viewModel.$albums
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] model in
+        guard let self = self else { return }
+        self.albumsTableView.update(with: model)
+      }
+      .store(in: &cancellables)
+
+    viewModel.$isLoading
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] loading in
+        guard let self = self else { return }
+        if loading {
+          self.spinner.startAnimating()
+        } else {
+          self.spinner.stopAnimating()
+        }
+      }
+      .store(in: &cancellables)
+  }
 }
 
 #if DEBUG
