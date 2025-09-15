@@ -7,6 +7,7 @@
 import Foundation
 
 struct ProfileHeaderViewModel {
+  let id: Int
   let name: String
   let address: String
 }

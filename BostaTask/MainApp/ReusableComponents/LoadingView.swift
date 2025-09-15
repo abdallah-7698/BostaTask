@@ -32,3 +32,14 @@ class LoadingView: UIView {
     spinner.centerInSuperview()
   }
 }
+
+#if DEBUG
+import SwiftUI
+
+@available(iOS 13, *)
+struct LoadingView_Preview: PreviewProvider {
+  static var previews: some View {
+    LoadingView().showPreview().padding(300)
+  }
+}
+#endif

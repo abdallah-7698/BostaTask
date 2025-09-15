@@ -50,7 +50,7 @@ class AlbumsTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: AlbumsHeaderView.reuseIdentifier) as! AlbumsHeaderView
-    header.configure(with: "My Albums")
+    header.configure(with: items.count > 0 ? "My Albums" : "")
     return header
   }
 
@@ -58,4 +58,3 @@ class AlbumsTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
     UITableView.automaticDimension
   }
 }
-

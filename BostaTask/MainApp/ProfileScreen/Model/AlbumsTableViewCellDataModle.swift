@@ -7,5 +7,6 @@
 import Foundation
 
 struct AlbumsTableViewCellDataModle {
+  let id: Int
   let title: String
 }

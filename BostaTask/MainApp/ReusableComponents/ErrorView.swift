@@ -135,3 +135,14 @@ class ErrorView: UIView {
     removeFromSuperview()
   }
 }
+
+#if DEBUG
+import SwiftUI
+
+@available(iOS 13, *)
+struct ErrorView_Preview: PreviewProvider {
+  static var previews: some View {
+    ErrorView().showPreview()
+  }
+}
+#endif

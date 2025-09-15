@@ -6,34 +6,45 @@
 //
 import Combine
 import Foundation
+import Moya
 
 class ProfileScreenViewModel {
   @Published var albums: [AlbumsTableViewCellDataModle] = []
-  @Published var profile: ProfileHeaderViewModel = .init(name: "", address: "")
+  @Published var profile: ProfileHeaderViewModel = .init(id: 0, name: "", address: "")
   @Published var isLoading: Bool = false
   @Published var error: String?
 
-  func fetchAlbums() {
-         // Start loading
-         isLoading = true
-         error = nil
+  // We can change it to Any rundom user id
+  private let userId: Int = 1
 
-         // Simulate a 5-second network delay
-         DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
-             guard let self = self else { return }
-             
-             // Stop loading
-             self.isLoading = false
-             
-             // Simulate an error
-             self.error = "Failed to load albums."
-             
-             // If you want to set albums only on success, you can comment the next line
-             // self.albums = [
-             //     .init(title: "Title 1"),
-             //     .init(title: "Title 2"),
-             //     .init(title: "Title 3")
-             // ]
-         }
-     }
+  private let profileProvider = MoyaProvider<UserProfileRequest>()
+  private let albumsProvider = MoyaProvider<UserAlbumsRequest>()
+  private var cancellables = Set<AnyCancellable>()
+
+  func fetchUserData() {
+    let profilePublisher = profileProvider
+      .requestPublisher(.init(userId: userId))
+      .map(\.data)
+      .decode(type: UserEntity.self, decoder: JSONDecoder())
+      .map { ProfileMapper.mapProfile($0) }
+
+    let albumsPublisher = albumsProvider
+      .requestPublisher(.init(userId: userId))
+      .map(\.data)
+      .decode(type: [AlbumEntity].self, decoder: JSONDecoder())
+      .map { AlbumsMapper.mapAlbums($0) }
+
+    Publishers.Zip(profilePublisher, albumsPublisher)
+      .assignLoading(to: \.isLoading, on: self)
+      .assignError(to: \.error, on: self)
+      .receive(on: DispatchQueue.main)
+      .sink(
+        receiveCompletion: { _ in },
+        receiveValue: { [weak self] profile, albums in
+          self?.profile = profile
+          self?.albums = albums
+        }
+      )
+      .store(in: &cancellables)
+  }
 }

@@ -24,7 +24,7 @@ class ProfileScreenViewController: UIViewController {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    viewModel.fetchAlbums()
+    viewModel.fetchUserData()
   }
 
   private func setupView() {
@@ -74,7 +74,7 @@ class ProfileScreenViewController: UIViewController {
       .sink { [weak self] error in
         guard let self = self else { return }
         view.showErrorView(message: error, onRetry: {
-          self.viewModel.fetchAlbums()
+          self.viewModel.fetchUserData()
         })
       }
       .store(in: &cancellables)

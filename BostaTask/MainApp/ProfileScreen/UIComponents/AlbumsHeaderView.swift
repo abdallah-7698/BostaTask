@@ -4,7 +4,6 @@
 //
 //  Created by name on 15/09/2025.
 //
-
 import UIKit
 
 class AlbumsHeaderView: UITableViewHeaderFooterView {
@@ -30,9 +29,8 @@ class AlbumsHeaderView: UITableViewHeaderFooterView {
     addSubview(titleLabel)
     titleLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, padding: .init(top: 0, left: 16, bottom: 16, right: 16))
   }
-  
+
   func configure(with title: String) {
-    self.titleLabel.text = title
+    titleLabel.text = title
   }
-  
 }
