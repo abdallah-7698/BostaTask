@@ -5,6 +5,10 @@ It demonstrates modern iOS development practices using **UIKit**, **MVVM**, **Co
 
 ---
 
+Uploading Simulator Screen Recording - iPhone 16 Pro - 2025-09-15 at 19.03.40.mp4…
+
+---
+
 ## 🚀 Features
 
 ### Profile Screen
