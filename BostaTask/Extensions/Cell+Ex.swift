@@ -18,9 +18,14 @@ extension ReuseIdentifiable {
 }
 
 extension UITableViewCell: ReuseIdentifiable {}
+extension UITableViewHeaderFooterView: ReuseIdentifiable {}
 
 extension UITableView {
   func registerCell<T: UITableViewCell>(_ cellType: T.Type) {
     register(cellType, forCellReuseIdentifier: String(describing: cellType))
   }
+  
+  func registerHeader<T: UITableViewHeaderFooterView>(_ headerType: T.Type) {
+          register(headerType, forHeaderFooterViewReuseIdentifier: String(describing: headerType))
+      }
 }

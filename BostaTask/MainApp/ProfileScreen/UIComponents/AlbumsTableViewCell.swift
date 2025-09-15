@@ -4,7 +4,6 @@
 //
 //  Created by name on 14/09/2025.
 //
-
 import UIKit
 
 class AlbumsTableViewCell: UITableViewCell, ReusableCell{
@@ -16,12 +15,24 @@ class AlbumsTableViewCell: UITableViewCell, ReusableCell{
     label.textColor = .label
     return label
   }()
+  
+  private let lineSeparator: UIView = {
+    let view = UIView()
+    view.backgroundColor = .separator
+    return view
+  }()
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     selectionStyle = .none
-    contentView.addSubview(titleLabel)
+    contentView.addSubviews(lineSeparator, titleLabel)
 
+    lineSeparator.anchor(top: contentView.topAnchor,
+                         leading: contentView.leadingAnchor,
+                         trailing: contentView.trailingAnchor,
+                         padding: .horizontal(16),
+                         size: .init(width: 0, height: 1))
+    
     titleLabel.anchor(top: contentView.topAnchor,
                       leading: contentView.leadingAnchor,
                       trailing: contentView.trailingAnchor,

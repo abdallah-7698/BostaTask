@@ -10,7 +10,7 @@ import UIKit
 class AlbumsTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
   private var items: [AlbumsTableViewCellDataModle] = []
   private let cell = AlbumsTableViewCell()
-  
+
   init() {
     super.init(frame: .zero, style: .plain)
     setupTableView()
@@ -25,12 +25,10 @@ class AlbumsTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
     delegate = self
     dataSource = self
     rowHeight = 60
-    separatorStyle = .singleLine
-
-    let inset: CGFloat = 40
-    separatorInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+    separatorStyle = .none
 
     registerCell(AlbumsTableViewCell.self)
+    registerHeader(AlbumsHeaderView.self)
   }
 
   func update(with items: [AlbumsTableViewCellDataModle]) {
@@ -49,4 +47,15 @@ class AlbumsTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     cell.onSelect(indexPath: indexPath)
   }
+
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: AlbumsHeaderView.reuseIdentifier) as! AlbumsHeaderView
+    header.configure(with: "My Albums")
+    return header
+  }
+
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    UITableView.automaticDimension
+  }
 }
+
