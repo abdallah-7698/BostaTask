@@ -2,9 +2,7 @@
   "images" : [
     {
       "filename" : "Screenshot 2025-09-15 at 6.45.24 PM.png",
-      "idiom" : "universal",
-      "platform" : "ios",
-      "size" : "1024x1024"
+      "idiom" : "universal"
     }
   ],
   "info" : {
