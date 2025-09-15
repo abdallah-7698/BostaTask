@@ -5,8 +5,10 @@ It demonstrates modern iOS development practices using **UIKit**, **MVVM**, **Co
 
 ---
 ## 🎥 Demo
-https://github.com/user-attachments/assets/92ab3a2f-57d4-479b-8693-f6aac50cdb25
----
+
+https://github.com/user-attachments/assets/2d2c8810-fe70-4985-b254-f4c1b6b8428a
+
+
 
 ## 🚀 Features
 
