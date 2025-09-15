@@ -9,16 +9,11 @@ import Combine
 import UIKit
 
 class ProfileScreenViewController: UIViewController {
-  private let headerView = NameAndAddressView(
-    name: "John Doe",
-    address: "123 Main Street Main Street, Cairo city, 12294005122112121212"
-  )
+  private let headerView = NameAndAddressView()
   private let albumsTableView = AlbumsTableView()
 
   private let viewModel = ProfileScreenViewModel()
   private var cancellables = Set<AnyCancellable>()
-
-  private let spinner = UIActivityIndicatorView(style: .large)
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -26,7 +21,7 @@ class ProfileScreenViewController: UIViewController {
     addUICompoents()
     bindViewModel()
   }
-  
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     viewModel.fetchAlbums()
@@ -39,8 +34,8 @@ class ProfileScreenViewController: UIViewController {
   }
 
   private func addUICompoents() {
-    view.addSubviews(headerView, albumsTableView, spinner)
-    
+    view.addSubviews(headerView, albumsTableView)
+
     headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                       leading: view.leadingAnchor,
                       trailing: view.trailingAnchor,
@@ -51,28 +46,36 @@ class ProfileScreenViewController: UIViewController {
                            leading: view.leadingAnchor,
                            trailing: view.trailingAnchor,
                            bottom: view.bottomAnchor)
-        
-    spinner.center = view.center
   }
 
   private func bindViewModel() {
     viewModel.$albums
-      .receive(on: DispatchQueue.main)
       .sink { [weak self] model in
         guard let self = self else { return }
         self.albumsTableView.update(with: model)
       }
       .store(in: &cancellables)
 
+    viewModel.$profile
+      .sink { [weak self] profile in
+        guard let self = self else { return }
+        self.headerView.configure(model: profile)
+      }
+      .store(in: &cancellables)
+
     viewModel.$isLoading
-      .receive(on: DispatchQueue.main)
       .sink { [weak self] loading in
         guard let self = self else { return }
-        if loading {
-          self.spinner.startAnimating()
-        } else {
-          self.spinner.stopAnimating()
-        }
+        self.view.showLoading(loading)
+      }
+      .store(in: &cancellables)
+
+    viewModel.$error
+      .sink { [weak self] error in
+        guard let self = self else { return }
+        view.showErrorView(message: error, onRetry: {
+          self.viewModel.fetchAlbums()
+        })
       }
       .store(in: &cancellables)
   }

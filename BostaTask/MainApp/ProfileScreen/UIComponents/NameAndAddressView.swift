@@ -24,10 +24,9 @@ class NameAndAddressView: UIView {
     return label
   }()
   
-  convenience init(name: String, address: String) {
+  convenience init() {
     self.init(frame: .zero)
     setupUI()
-    configure(name: name, address: address)
   }
   
   private func setupUI() {
@@ -48,8 +47,8 @@ class NameAndAddressView: UIView {
     )
   }
   
-  func configure(name: String, address: String) {
-    nameLabel.text = name
-    addressLabel.text = address
+  func configure(model: ProfileHeaderViewModel) {
+    nameLabel.text = model.name
+    addressLabel.text = model.address
   }
 }
