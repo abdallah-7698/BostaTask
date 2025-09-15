@@ -62,7 +62,12 @@ class PhotosScreenViewController: UIViewController {
     searchView.onSearchTextChanged = { [weak self] searchText in
       guard let self = self else { return }
       viewModel.onSearchTextChanged(searchText)
-//      photosCollectionView.updatePhotos(self.viewModel.photosData)
+    }
+    
+    photosCollectionView.onSelectPhoto = { [weak self] photo in
+      guard let self = self else { return }
+      let photoDetailsViewController = PhotoDetailViewController(photo: photo)
+      self.present(photoDetailsViewController, animated: false)
     }
     
     viewModel.$photosData

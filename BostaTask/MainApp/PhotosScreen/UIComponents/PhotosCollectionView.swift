@@ -13,6 +13,8 @@ class PhotosCollectionView: UICollectionView {
     
   private var diffableDataSource: UICollectionViewDiffableDataSource<Section, Photo>!
   private var photos: [Photo] = []
+  
+  var onSelectPhoto: ((Photo) -> Void) = { _ in }
 
   convenience init() {
     self.init(frame: .zero, collectionViewLayout: UICollectionViewLayout.createSquareCellLayout())
@@ -22,6 +24,7 @@ class PhotosCollectionView: UICollectionView {
     
   private func setupCollectionView() {
     backgroundColor = .systemBackground
+    delegate = self
     register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
   }
     
@@ -71,6 +74,14 @@ class PhotosCollectionView: UICollectionView {
 
   }
 }
+
+extension PhotosCollectionView: UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    guard let photo = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+    onSelectPhoto(photo)
+  }
+}
+
 
 #if DEBUG
 import SwiftUI
