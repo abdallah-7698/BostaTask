@@ -12,13 +12,22 @@ class ProfileScreenViewController: UIViewController {
   private let headerView = NameAndAddressView()
   private let albumsTableView = AlbumsTableView()
 
-  private let viewModel = ProfileScreenViewModel()
+  private var viewModel: ProfileScreenViewModel
   private var cancellables = Set<AnyCancellable>()
 
+  init(viewModel: ProfileScreenViewModel) {
+    self.viewModel = viewModel
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupView()
-    addUICompoents()
+    addUIComponents()
     bindViewModel()
   }
 
@@ -33,7 +42,7 @@ class ProfileScreenViewController: UIViewController {
     view.backgroundColor = .systemBackground
   }
 
-  private func addUICompoents() {
+  private func addUIComponents() {
     view.addSubviews(headerView, albumsTableView)
 
     headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
@@ -49,6 +58,8 @@ class ProfileScreenViewController: UIViewController {
   }
 
   private func bindViewModel() {
+    albumsTableView.onSelectAction = viewModel.router.onSelecetAlbum
+    
     viewModel.$albums
       .sink { [weak self] model in
         guard let self = self else { return }
@@ -87,7 +98,7 @@ import SwiftUI
 @available(iOS 13, *)
 struct ViewController_Preview: PreviewProvider {
   static var previews: some View {
-    UINavigationController(rootViewController: ProfileScreenViewController())
+    UINavigationController(rootViewController: ProfileScreenViewController(viewModel: ProfileScreenViewModel(router: .live)))
       .showPreview()
   }
 }

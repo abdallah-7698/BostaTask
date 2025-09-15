@@ -11,6 +11,8 @@ class AlbumsTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
   private var items: [AlbumsTableViewCellDataModle] = []
   private let cell = AlbumsTableViewCell()
 
+  var onSelectAction: ((_ albom: AlbumsTableViewCellDataModle) -> Void)?
+
   init() {
     super.init(frame: .zero, style: .plain)
     setupTableView()
@@ -45,7 +47,7 @@ class AlbumsTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    cell.onSelect(indexPath: indexPath)
+    onSelectAction?(items[indexPath.row])
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -57,4 +59,5 @@ class AlbumsTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     UITableView.automaticDimension
   }
+  
 }

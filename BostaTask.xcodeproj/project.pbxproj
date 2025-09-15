@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3F9FC4932E77DEF3003C8806 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 3F9FC4922E77DEF3003C8806 /* CombineMoya */; };
 		3F9FC4952E77DEF3003C8806 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 3F9FC4942E77DEF3003C8806 /* Moya */; };
+		3F9FD1822E7835D8003C8806 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3F9FD1812E7835D8003C8806 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F9FD1822E7835D8003C8806 /* Kingfisher in Frameworks */,
 				3F9FC4952E77DEF3003C8806 /* Moya in Frameworks */,
 				3F9FC4932E77DEF3003C8806 /* CombineMoya in Frameworks */,
 			);
@@ -87,6 +89,7 @@
 			packageProductDependencies = (
 				3F9FC4922E77DEF3003C8806 /* CombineMoya */,
 				3F9FC4942E77DEF3003C8806 /* Moya */,
+				3F9FD1812E7835D8003C8806 /* Kingfisher */,
 			);
 			productName = BostaTask;
 			productReference = 3F9FC41A2E770080003C8806 /* BostaTask.app */;
@@ -118,6 +121,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				3F9FC4912E77DEF3003C8806 /* XCRemoteSwiftPackageReference "Moya" */,
+				3F9FD1802E7835D8003C8806 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3F9FC41B2E770080003C8806 /* Products */;
@@ -355,6 +359,14 @@
 				version = 15.0.3;
 			};
 		};
+		3F9FD1802E7835D8003C8806 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = exactVersion;
+				version = 8.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -367,6 +379,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3F9FC4912E77DEF3003C8806 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		3F9FD1812E7835D8003C8806 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F9FD1802E7835D8003C8806 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

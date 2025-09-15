@@ -54,10 +54,6 @@ class AlbumsTableViewCell: UITableViewCell, ReusableCell{
     cell.configure(with: model)
     return cell
   }
-
-  func onSelect(indexPath: IndexPath) {
-    print("Album cell selected at row \(indexPath.row)")
-  }
 }
 
 #if DEBUG

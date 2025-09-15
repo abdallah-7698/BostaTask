@@ -9,6 +9,7 @@ import Foundation
 
 struct ProfileScreenFactory {
   static func makeViewContrller() -> ProfileScreenViewController {
-    return ProfileScreenViewController()
+    let viewModel = ProfileScreenViewModel(router: .live)
+    return ProfileScreenViewController(viewModel: viewModel)
   }
 }

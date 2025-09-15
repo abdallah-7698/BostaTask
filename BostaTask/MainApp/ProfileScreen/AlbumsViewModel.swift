@@ -21,6 +21,12 @@ class ProfileScreenViewModel {
   private let albumsProvider = MoyaProvider<UserAlbumsRequest>()
   private var cancellables = Set<AnyCancellable>()
 
+  private(set) var router: ProfileScreenRouter
+
+  init(router: ProfileScreenRouter) {
+      self.router = router
+  }
+  
   func fetchUserData() {
     let profilePublisher = profileProvider
       .requestPublisher(.init(userId: userId))

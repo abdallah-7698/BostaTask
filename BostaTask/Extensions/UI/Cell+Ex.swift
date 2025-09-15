@@ -18,6 +18,7 @@ extension ReuseIdentifiable {
 }
 
 extension UITableViewCell: ReuseIdentifiable {}
+extension UICollectionViewCell: ReuseIdentifiable {}
 extension UITableViewHeaderFooterView: ReuseIdentifiable {}
 
 extension UITableView {
