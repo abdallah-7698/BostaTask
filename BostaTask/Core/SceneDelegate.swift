@@ -14,8 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
     guard let windowScene = (scene as? UIWindowScene) else { return }
     window = UIWindow(windowScene: windowScene)
-    let vc : UIViewController = UINavigationController(rootViewController: PhotosScreenFactory.makeViewContrller(albom: .init(id: 1, title: "Titile")))
-    window?.rootViewController =  vc
+    let navigationController = UINavigationController()
+    let profileVC = ProfileScreenFactory.makeViewContrller(navigationController: navigationController)
+    navigationController.viewControllers = [profileVC]
+    window?.rootViewController =  navigationController
     window?.makeKeyAndVisible()
   }
 

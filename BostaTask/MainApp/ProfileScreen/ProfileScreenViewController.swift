@@ -58,7 +58,7 @@ class ProfileScreenViewController: UIViewController {
   }
 
   private func bindViewModel() {
-    albumsTableView.onSelectAction = viewModel.router.onSelecetAlbum
+    albumsTableView.onSelectAction = viewModel.router.onSelectAlbum
     
     viewModel.$albums
       .sink { [weak self] model in
@@ -98,7 +98,7 @@ import SwiftUI
 @available(iOS 13, *)
 struct ViewController_Preview: PreviewProvider {
   static var previews: some View {
-    UINavigationController(rootViewController: ProfileScreenViewController(viewModel: ProfileScreenViewModel(router: .live)))
+    UINavigationController(rootViewController: ProfileScreenViewController(viewModel: ProfileScreenViewModel(router: .live(navigationController: UINavigationController()))))
       .showPreview()
   }
 }

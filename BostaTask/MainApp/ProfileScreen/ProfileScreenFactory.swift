@@ -5,11 +5,11 @@
 //  Created by name on 14/09/2025.
 //
 
-import Foundation
+import UIKit
 
 struct ProfileScreenFactory {
-  static func makeViewContrller() -> ProfileScreenViewController {
-    let viewModel = ProfileScreenViewModel(router: .live)
+  static func makeViewContrller(navigationController: UINavigationController?) -> ProfileScreenViewController {
+    let viewModel = ProfileScreenViewModel(router: .live(navigationController: navigationController))
     return ProfileScreenViewController(viewModel: viewModel)
   }
 }

@@ -8,12 +8,15 @@
 import UIKit
 
 struct ProfileScreenRouter {
-  let onSelecetAlbum: (_ albom: AlbumsTableViewCellDataModle) -> Void
+  let onSelectAlbum: (_ album: AlbumsTableViewCellDataModle) -> Void
 }
 
 extension ProfileScreenRouter {
-  static let live = ProfileScreenRouter {albom in
-   let vc = PhotosScreenFactory.makeViewContrller(albom: albom)
-    // show the new vc
+  static func live(navigationController: UINavigationController?) -> ProfileScreenRouter {
+    ProfileScreenRouter { album in
+      let vc = PhotosScreenFactory.makeViewContrller(album: album)
+      navigationController?.pushViewController(vc, animated: true)
+    }
   }
 }
+

@@ -8,8 +8,8 @@
 import UIKit
 
 struct PhotosScreenFactory {
-  static func makeViewContrller(albom: AlbumsTableViewCellDataModle) -> PhotosScreenViewController {
-    let photoViewModel = PhotosScreenViewModel(album: albom)
+  static func makeViewContrller(album: AlbumsTableViewCellDataModle) -> PhotosScreenViewController {
+    let photoViewModel = PhotosScreenViewModel(album: album)
     return PhotosScreenViewController(viewModel: photoViewModel)
   }
 }
