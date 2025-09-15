@@ -17,11 +17,6 @@ extension UICollectionViewLayout {
     
     let section = NSCollectionLayoutSection(group: group)
     
-//    let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
-//    let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-//    header.pinToVisibleBounds = true
-//    section.boundarySupplementaryItems = [header]
-    
     return UICollectionViewCompositionalLayout(section: section)
   }
 }

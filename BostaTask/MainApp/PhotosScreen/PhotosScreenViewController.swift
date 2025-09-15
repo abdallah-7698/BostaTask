@@ -9,7 +9,8 @@ import Combine
 
 class PhotosScreenViewController: UIViewController {
   
-  private var photosCollectionView: PhotosCollectionView!
+  private var photosCollectionView = PhotosCollectionView()
+  private let searchView = SearchHeaderView()
   
   private var viewModel: PhotosScreenViewModel
   private var cancellables = Set<AnyCancellable>()
@@ -42,11 +43,15 @@ class PhotosScreenViewController: UIViewController {
   }
   
   private func addUIComponents() {
-    photosCollectionView = PhotosCollectionView()
-    view.addSubview(photosCollectionView)
+    view.addSubviews(searchView, photosCollectionView)
+    
+    searchView.anchor(
+      top: view.safeAreaLayoutGuide.topAnchor,
+      leading: view.leadingAnchor,
+      trailing: view.trailingAnchor)
     
     photosCollectionView.anchor(
-            top: view.safeAreaLayoutGuide.topAnchor,
+            top: searchView.bottomAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
             bottom: view.bottomAnchor
@@ -54,6 +59,12 @@ class PhotosScreenViewController: UIViewController {
   }
   
   private func bindViewModel() {
+    searchView.onSearchTextChanged = { [weak self] searchText in
+      guard let self = self else { return }
+      viewModel.onSearchTextChanged(searchText)
+//      photosCollectionView.updatePhotos(self.viewModel.photosData)
+    }
+    
     viewModel.$photosData
       .sink { [weak self] photosData in
         guard let self = self else { return }
