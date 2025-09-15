@@ -4,9 +4,7 @@ This project is a clean and well-structured iOS application built as part of a t
 It demonstrates modern iOS development practices using **UIKit**, **MVVM**, **Combine**, and **Moya**, with clean architecture and a focus on maintainability.  
 
 ---
-
-Uploading Simulator Screen Recording - iPhone 16 Pro - 2025-09-15 at 19.03.40.mp4…
-
+https://github.com/user-attachments/assets/99ef1116-0c32-482d-9e82-99c4d2a0c438
 ---
 
 ## 🚀 Features
